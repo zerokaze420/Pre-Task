@@ -47,5 +47,25 @@ Error: Build board milkv-duo256m-musl-riscv64-sd failed!
 ```
 
 貌似是因为没有开启内核参数导致的。
+继续排查， 发现是文件太大放不下来， 提示如下
+执行 `make menuconfig` 调整到根分区为 1024M
+
+继续执行发现还是报错
+
+
+
+```
+2025-08-15T19:27:48 github.com/containerd/nri/pkg/adaptation
+2025-08-15T19:27:48 github.com/containerd/containerd/v2/internal/nri
+2025-08-15T19:27:49 github.com/containerd/containerd/v2/plugins/nri
+2025-08-15T19:27:49 github.com/containerd/containerd/v2/cmd/containerd/builtins
+2025-08-15T19:27:49 github.com/containerd/containerd/v2/cmd/containerd
+2025-08-15T19:27:53 # github.com/containerd/containerd/v2/cmd/containerd
+2025-08-15T19:27:53 $WORK/b137/_pkg_.a(_x005.o): unknown relocation type 17; compiled without -fpic?
+2025-08-15T19:27:53 make[2]: *** [package/pkg-generic.mk:273: /home/bytedream/workspace/duo-buildroot-sdk-v2/buildroot/output/milkv-duo256m-musl-riscv64-sd/build/containerd-2.0.2/.stamp_built] Error 1
+2025-08-15T19:27:54 make[1]: *** [Makefile:87: _all] Error 2
+2025-08-15T19:27:54 make[1]: Leaving directory '/home/bytedream/workspace/duo-buildroot-sdk-v2/buildroot'
+```
+
 
 
