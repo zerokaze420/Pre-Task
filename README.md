@@ -30,7 +30,7 @@ Locale: en_US.UTF-8
 ```
 
 
-根据`Buildroot SDK V2` 文档添加 `Docker` 软件包编译， 速度感人
+根据`Buildroot SDK V2` 文档添加 `Docker` 软件包编译， 速度感人一次耗时60分钟
 
 编译错误
 
