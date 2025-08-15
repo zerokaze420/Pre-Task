@@ -68,4 +68,27 @@ Error: Build board milkv-duo256m-musl-riscv64-sd failed!
 ```
 
 
+在添加了编译参数，继续编译
+
+```bash
+CONTAINERD_EXTLDFLAGS += -Wl,--no-pie -Wl,-fPIC
+```
+
+继续编译， 仍然报错 ，问了一下 gemini
+
+```bash
+你提供的日志显示，go build 命令已经包含了 -fPIC 标志：
+go build ... -ldflags "-X ... -extldflags '-Wl,--no-pie,-fPIC'"
+
+这意味着问题并不是缺少 -fPIC 标志，而是尽管使用了该标志，编译器和链接器在处理某些代码时仍然失败了。
+
+unknown relocation type 17 是一个非常底层、和 CGO（Go 和 C 代码的互操作性） 以及 目标架构 ABI（应用程序二进制接口） 相关的问题。它通常意味着 Go 编译器生成的代码与 C 编译器生成的对象文件（例如 _x005.o）在链接时存在某种不兼容性。这可能是因为 Go 语言版本、musl 工具链或 RISC-V 架构本身之间存在一个 Bug 或不兼容。
+```
+
+
+
+
+怀疑是 musl 的问题 ， 尝试使用glic
+
+https://honnef.co/articles/statically-compiled-go-programs-always-even-with-cgo-using-musl/
 
