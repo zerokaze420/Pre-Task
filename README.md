@@ -88,7 +88,7 @@ unknown relocation type 17 是一个非常底层、和 CGO（Go 和 C 代码的�
 
 
 
-怀疑是 musl 的问题 ， 尝试使用glic
+怀疑是 musl 的问题 ， 尝试使用 glic
 
 https://honnef.co/articles/statically-compiled-go-programs-always-even-with-cgo-using-musl/
 
