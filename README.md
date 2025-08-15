@@ -74,7 +74,7 @@ Error: Build board milkv-duo256m-musl-riscv64-sd failed!
 CONTAINERD_EXTLDFLAGS += -Wl,--no-pie -Wl,-fPIC
 ```
 
-继续编译， 仍然报错 ，问了一下 gemini
+继续编译， 仍然报错，问了一下 gemini
 
 ```bash
 你提供的日志显示，go build 命令已经包含了 -fPIC 标志：
