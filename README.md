@@ -30,4 +30,22 @@ Locale: en_US.UTF-8
 ```
 
 
-根据文档添加Docker 软件包编译， 速度感人
+根据`Buildroot SDK V2` 文档添加 `Docker` 软件包编译， 速度感人
+
+编译错误
+
+```bash
+/home/bytedream/workspace/duo-buildroot-sdk-v2/buildroot/utils/brmake -j16 -C /home/bytedream/workspace/duo-buildroot-sdk-v2/buildroot
+2025-08-15T15:47:25 >>> containerd 2.0.2 Building
+2025-08-15T15:47:25 >>> docker-cli-buildx 0.16.1 Building
+2025-08-15T15:47:25 >>> docker-compose 2.32.4 Patching
+2025-08-15T15:47:25 >>> docker-engine 27.5.1 Building
+2025-08-15T15:47:25 >>> docker-compose 2.32.4 Configuring
+Done in 31s  (error code: 2)
+make: *** [Makefile:621: br-rootfs-pack] Error 2
+Error: Build board milkv-duo256m-musl-riscv64-sd failed!
+```
+
+貌似是因为没有开启内核参数导致的。
+
+
