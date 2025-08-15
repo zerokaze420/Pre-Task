@@ -29,3 +29,5 @@ Local IP (ens18): 192.168.3.103/24
 Locale: en_US.UTF-8
 ```
 
+
+根据文档添加Docker 软件包编译， 速度感人
