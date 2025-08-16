@@ -9,7 +9,7 @@
 
 # Day 2
 
-开发环境本机通过 zed remote 开发 ，  生成镜像后通过SCP 本机烧录到开发板
+开发环境本机通过 zed remote 开发 ，  生成镜像后通过 SCP 本机烧录到开发板
 
 ```bash
 OS: Ubuntu 22.04.5 LTS x86_64
