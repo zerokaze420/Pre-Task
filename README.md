@@ -76,6 +76,16 @@ CONTAINERD_EXTLDFLAGS += -Wl,--no-pie -Wl,-fPIC
 
 继续编译， 仍然报错，问了一下 gemini
 
+
+```bash
+2025-08-16T09:47:04 # github.com/containerd/containerd/v2/cmd/containerd
+2025-08-16T09:47:04 /home/bytedream/workspace/duo-buildroot-sdk-v2/buildroot/output/milkv-duo256m-musl-riscv64-sd/host/share/go-cache/44/44ca8e3e120cc646706961004a72d827dad202bf0f12ade40c201a1ca774da2d-d(_x005.o): unknown relocation type 17; compiled without -fpic?
+2025-08-16T09:47:04 make[2]: *** [package/pkg-generic.mk:273: /home/bytedream/workspace/duo-buildroot-sdk-v2/buildroot/output/milkv-duo256m-musl-riscv64-sd/build/containerd-2.0.2/.stamp_built] Error 1
+2025-08-16T09:47:04 make[1]: *** [Makefile:87: _all] Error 2
+2025-08-16T09:47:04 make[1]: Leaving directory '/home/bytedream/workspace/duo-buildroot-sdk-v2/buildroot'
+```
+
+
 ```bash
 你提供的日志显示，go build 命令已经包含了 -fPIC 标志：
 go build ... -ldflags "-X ... -extldflags '-Wl,--no-pie,-fPIC'"
@@ -88,7 +98,19 @@ unknown relocation type 17 是一个非常底层、和 CGO（Go 和 C 代码的�
 
 
 
-怀疑是 musl 的问题 ， 尝试使用 glic
+
+
+怀疑是 musl 的问题 ， 尝试使用 glic , 发现切换后还是 musl
+
+
+# Day 3
+
+
+继续按搜索报错
+
+
+https://lists.buildroot.org/pipermail/buildroot/2024-September/763767.html
+
 
 https://honnef.co/articles/statically-compiled-go-programs-always-even-with-cgo-using-musl/
 
