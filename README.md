@@ -100,13 +100,229 @@ unknown relocation type 17 是一个非常底层、和 CGO（Go 和 C 代码的�
 
 
 
-怀疑是 musl 的问题 ， 尝试使用 glic , 发现切换后还是 musl
+怀疑是 musl 的问题 ， 尝试使用 glic , 发现切换后还是 报错
+
+
+```bash
+Done in 1min 55s  (error code: 2)make: *** [Makefile:621: br-rootfs-pack] Error 2Error: Build board milkv-duo256m-musl-riscv64-sd failed!
+```
 
 
 # Day 3
 
 
+```bash
+root@e458080c4150:/home/work# strace make br-rootfs-pack
+execve("/usr/bin/make", ["make", "br-rootfs-pack"], 0x7fff013b7048 /* 83 vars */) = 0
+brk(NULL)                               = 0x55bc60093000
+arch_prctl(0x3001 /* ARCH_??? */, 0x7ffdc0893160) = -1 EINVAL (Invalid argument)
+mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f5cd9301000
+access("/etc/ld.so.preload", R_OK)      = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+newfstatat(3, "", {st_mode=S_IFREG|0644, st_size=14271, ...}, AT_EMPTY_PATH) = 0
+mmap(NULL, 14271, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f5cd92fd000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0P\237\2\0\0\0\0\0"..., 832) = 832
+pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+pread64(3, "\4\0\0\0 \0\0\0\5\0\0\0GNU\0\2\0\0\300\4\0\0\0\3\0\0\0\0\0\0\0"..., 48, 848) = 48
+pread64(3, "\4\0\0\0\24\0\0\0\3\0\0\0GNU\0I\17\357\204\3$\f\221\2039x\324\224\323\236S"..., 68, 896) = 68
+newfstatat(3, "", {st_mode=S_IFREG|0755, st_size=2220400, ...}, AT_EMPTY_PATH) = 0
+pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+mmap(NULL, 2264656, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7f5cd90d4000
+mprotect(0x7f5cd90fc000, 2023424, PROT_NONE) = 0
+mmap(0x7f5cd90fc000, 1658880, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x28000) = 0x7f5cd90fc000
+mmap(0x7f5cd9291000, 360448, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1bd000) = 0x7f5cd9291000
+mmap(0x7f5cd92ea000, 24576, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x215000) = 0x7f5cd92ea000
+mmap(0x7f5cd92f0000, 52816, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7f5cd92f0000
+close(3)                                = 0
+mmap(NULL, 12288, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f5cd90d1000
+arch_prctl(ARCH_SET_FS, 0x7f5cd90d1740) = 0
+set_tid_address(0x7f5cd90d1a10)         = 1656001
+set_robust_list(0x7f5cd90d1a20, 24)     = 0
+rseq(0x7f5cd90d20e0, 0x20, 0, 0x53053053) = 0
+mprotect(0x7f5cd92ea000, 16384, PROT_READ) = 0
+mprotect(0x55bc52557000, 8192, PROT_READ) = 0
+mprotect(0x7f5cd9343000, 8192, PROT_READ) = 0
+prlimit64(0, RLIMIT_STACK, NULL, {rlim_cur=8192*1024, rlim_max=RLIM64_INFINITY}) = 0
+munmap(0x7f5cd92fd000, 14271)           = 0
+getrandom("\xd7\x0b\x3c\x64\x6a\x13\x4b\x95", 8, GRND_NONBLOCK) = 8
+brk(NULL)                               = 0x55bc60093000
+brk(0x55bc600b4000)                     = 0x55bc600b4000
+rt_sigaction(SIGHUP, {sa_handler=0x55bc5252ecd0, sa_mask=[HUP], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f5cd9116520}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGQUIT, {sa_handler=0x55bc5252ecd0, sa_mask=[QUIT], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f5cd9116520}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGINT, {sa_handler=0x55bc5252ecd0, sa_mask=[INT], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f5cd9116520}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGTERM, {sa_handler=0x55bc5252ecd0, sa_mask=[TERM], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f5cd9116520}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGXCPU, {sa_handler=0x55bc5252ecd0, sa_mask=[XCPU], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f5cd9116520}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGXFSZ, {sa_handler=0x55bc5252ecd0, sa_mask=[XFSZ], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f5cd9116520}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGCHLD, {sa_handler=SIG_DFL, sa_mask=[CHLD], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f5cd9116520}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+fcntl(1, F_GETFL)                       = 0x8402 (flags O_RDWR|O_APPEND|O_LARGEFILE)
+fcntl(1, F_SETFL, O_RDWR|O_APPEND|O_LARGEFILE) = 0
+fcntl(2, F_GETFL)                       = 0x8402 (flags O_RDWR|O_APPEND|O_LARGEFILE)
+fcntl(2, F_SETFL, O_RDWR|O_APPEND|O_LARGEFILE) = 0
+fcntl(1, F_GETFD)                       = 0
+getcwd("/home/work", 4096)              = 11
+ioctl(1, TCGETS, {B38400 opost isig icanon echo ...}) = 0
+ioctl(1, TCGETS, {B38400 opost isig icanon echo ...}) = 0
+ioctl(1, TCGETS, {B38400 opost isig icanon echo ...}) = 0
+newfstatat(1, "", {st_mode=S_IFCHR|0620, st_rdev=makedev(0x88, 0x1), ...}, AT_EMPTY_PATH) = 0
+readlink("/proc/self/fd/1", "/dev/pts/1", 4095) = 10
+newfstatat(AT_FDCWD, "/dev/pts/1", {st_mode=S_IFCHR|0620, st_rdev=makedev(0x88, 0x1), ...}, 0) = 0
+ioctl(2, TCGETS, {B38400 opost isig icanon echo ...}) = 0
+ioctl(2, TCGETS, {B38400 opost isig icanon echo ...}) = 0
+ioctl(2, TCGETS, {B38400 opost isig icanon echo ...}) = 0
+newfstatat(2, "", {st_mode=S_IFCHR|0620, st_rdev=makedev(0x88, 0x1), ...}, AT_EMPTY_PATH) = 0
+readlink("/proc/self/fd/2", "/dev/pts/1", 4095) = 10
+newfstatat(AT_FDCWD, "/dev/pts/1", {st_mode=S_IFCHR|0620, st_rdev=makedev(0x88, 0x1), ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/gnu/include", 0x7ffdc08918a0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/include", {st_mode=S_IFDIR|0755, st_size=0, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/include", {st_mode=S_IFDIR|0755, st_size=2084, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/include", {st_mode=S_IFDIR|0755, st_size=2084, ...}, 0) = 0
+rt_sigaction(SIGCHLD, {sa_handler=0x55bc52534dc0, sa_mask=[CHLD], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f5cd9116520}, {sa_handler=SIG_DFL, sa_mask=[CHLD], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f5cd9116520}, 8) = 0
+rt_sigprocmask(SIG_SETMASK, [CHLD], NULL, 8) = 0
+rt_sigaction(SIGUSR1, {sa_handler=0x55bc52534a90, sa_mask=[USR1], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f5cd9116520}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+brk(0x55bc600d5000)                     = 0x55bc600d5000
+newfstatat(AT_FDCWD, ".", {st_mode=S_IFDIR|0755, st_size=474, ...}, 0) = 0
+openat(AT_FDCWD, ".", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
+newfstatat(3, "", {st_mode=S_IFDIR|0755, st_size=474, ...}, AT_EMPTY_PATH) = 0
+getdents64(3, 0x55bc600b7010 /* 34 entries */, 32768) = 1032
+getdents64(3, 0x55bc600b7010 /* 0 entries */, 32768) = 0
+close(3)                                = 0
+newfstatat(AT_FDCWD, "RCS", 0x7ffdc0891830, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "SCCS", 0x7ffdc0891830, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "GNUmakefile", 0x7ffdc088f750, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "makefile", 0x7ffdc088f750, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "Makefile", 0x7ffdc088f750, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "br-rootfs-pack", 0x7ffdc088f640, 0) = -1 ENOENT (No such file or directory)
+write(2, "make: *** No rule to make target"..., 58make: *** No rule to make target 'br-rootfs-pack'.  Stop.
+) = 58
+chdir("/home/work")                     = 0
+close(1)                                = 0
+exit_group(2)                           = ?
++++ exited with 2 +++
+root@e458080c4150:/home/work# 
+```
+
 继续按搜索报错
+
+
+
+```bash
+
+root@e458080c4150:/home/work/buildroot/output/milkv-duo256m-musl-riscv64-sd# make br-rootfs-pack
+make[1]: *** No rule to make target 'br-rootfs-pack'.  Stop.
+make: *** [Makefile:23: _all] Error 2
+root@e458080c4150:/home/work/buildroot/output/milkv-duo256m-musl-riscv64-sd# strace make br-rootfs-pack
+execve("/usr/bin/make", ["make", "br-rootfs-pack"], 0x7ffe294cfe28 /* 83 vars */) = 0
+brk(NULL)                               = 0x55e61fac3000
+arch_prctl(0x3001 /* ARCH_??? */, 0x7ffe7c38d900) = -1 EINVAL (Invalid argument)
+mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f1218ffd000
+access("/etc/ld.so.preload", R_OK)      = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+newfstatat(3, "", {st_mode=S_IFREG|0644, st_size=14271, ...}, AT_EMPTY_PATH) = 0
+mmap(NULL, 14271, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f1218ff9000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0P\237\2\0\0\0\0\0"..., 832) = 832
+pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+pread64(3, "\4\0\0\0 \0\0\0\5\0\0\0GNU\0\2\0\0\300\4\0\0\0\3\0\0\0\0\0\0\0"..., 48, 848) = 48
+pread64(3, "\4\0\0\0\24\0\0\0\3\0\0\0GNU\0I\17\357\204\3$\f\221\2039x\324\224\323\236S"..., 68, 896) = 68
+newfstatat(3, "", {st_mode=S_IFREG|0755, st_size=2220400, ...}, AT_EMPTY_PATH) = 0
+pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+mmap(NULL, 2264656, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7f1218dd0000
+mprotect(0x7f1218df8000, 2023424, PROT_NONE) = 0
+mmap(0x7f1218df8000, 1658880, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x28000) = 0x7f1218df8000
+mmap(0x7f1218f8d000, 360448, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1bd000) = 0x7f1218f8d000
+mmap(0x7f1218fe6000, 24576, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x215000) = 0x7f1218fe6000
+mmap(0x7f1218fec000, 52816, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7f1218fec000
+close(3)                                = 0
+mmap(NULL, 12288, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f1218dcd000
+arch_prctl(ARCH_SET_FS, 0x7f1218dcd740) = 0
+set_tid_address(0x7f1218dcda10)         = 1656559
+set_robust_list(0x7f1218dcda20, 24)     = 0
+rseq(0x7f1218dce0e0, 0x20, 0, 0x53053053) = 0
+mprotect(0x7f1218fe6000, 16384, PROT_READ) = 0
+mprotect(0x55e5e8539000, 8192, PROT_READ) = 0
+mprotect(0x7f121903f000, 8192, PROT_READ) = 0
+prlimit64(0, RLIMIT_STACK, NULL, {rlim_cur=8192*1024, rlim_max=RLIM64_INFINITY}) = 0
+munmap(0x7f1218ff9000, 14271)           = 0
+getrandom("\x75\x06\xbe\xcf\x38\xe6\x73\x07", 8, GRND_NONBLOCK) = 8
+brk(NULL)                               = 0x55e61fac3000
+brk(0x55e61fae4000)                     = 0x55e61fae4000
+rt_sigaction(SIGHUP, {sa_handler=0x55e5e8510cd0, sa_mask=[HUP], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f1218e12520}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGQUIT, {sa_handler=0x55e5e8510cd0, sa_mask=[QUIT], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f1218e12520}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGINT, {sa_handler=0x55e5e8510cd0, sa_mask=[INT], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f1218e12520}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGTERM, {sa_handler=0x55e5e8510cd0, sa_mask=[TERM], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f1218e12520}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGXCPU, {sa_handler=0x55e5e8510cd0, sa_mask=[XCPU], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f1218e12520}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGXFSZ, {sa_handler=0x55e5e8510cd0, sa_mask=[XFSZ], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f1218e12520}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGCHLD, {sa_handler=SIG_DFL, sa_mask=[CHLD], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f1218e12520}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+fcntl(1, F_GETFL)                       = 0x8402 (flags O_RDWR|O_APPEND|O_LARGEFILE)
+fcntl(1, F_SETFL, O_RDWR|O_APPEND|O_LARGEFILE) = 0
+fcntl(2, F_GETFL)                       = 0x8402 (flags O_RDWR|O_APPEND|O_LARGEFILE)
+fcntl(2, F_SETFL, O_RDWR|O_APPEND|O_LARGEFILE) = 0
+fcntl(1, F_GETFD)                       = 0
+getcwd("/home/work/buildroot/output/milkv-duo256m-musl-riscv64-sd", 4096) = 58
+ioctl(1, TCGETS, {B38400 opost isig icanon echo ...}) = 0
+ioctl(1, TCGETS, {B38400 opost isig icanon echo ...}) = 0
+ioctl(1, TCGETS, {B38400 opost isig icanon echo ...}) = 0
+newfstatat(1, "", {st_mode=S_IFCHR|0620, st_rdev=makedev(0x88, 0x1), ...}, AT_EMPTY_PATH) = 0
+readlink("/proc/self/fd/1", "/dev/pts/1", 4095) = 10
+newfstatat(AT_FDCWD, "/dev/pts/1", {st_mode=S_IFCHR|0620, st_rdev=makedev(0x88, 0x1), ...}, 0) = 0
+ioctl(2, TCGETS, {B38400 opost isig icanon echo ...}) = 0
+ioctl(2, TCGETS, {B38400 opost isig icanon echo ...}) = 0
+ioctl(2, TCGETS, {B38400 opost isig icanon echo ...}) = 0
+newfstatat(2, "", {st_mode=S_IFCHR|0620, st_rdev=makedev(0x88, 0x1), ...}, AT_EMPTY_PATH) = 0
+readlink("/proc/self/fd/2", "/dev/pts/1", 4095) = 10
+newfstatat(AT_FDCWD, "/dev/pts/1", {st_mode=S_IFCHR|0620, st_rdev=makedev(0x88, 0x1), ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/gnu/include", 0x7ffe7c38c040, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/include", {st_mode=S_IFDIR|0755, st_size=0, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/include", {st_mode=S_IFDIR|0755, st_size=2084, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/include", {st_mode=S_IFDIR|0755, st_size=2084, ...}, 0) = 0
+rt_sigaction(SIGCHLD, {sa_handler=0x55e5e8516dc0, sa_mask=[CHLD], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f1218e12520}, {sa_handler=SIG_DFL, sa_mask=[CHLD], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f1218e12520}, 8) = 0
+rt_sigprocmask(SIG_SETMASK, [CHLD], NULL, 8) = 0
+rt_sigaction(SIGUSR1, {sa_handler=0x55e5e8516a90, sa_mask=[USR1], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f1218e12520}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+brk(0x55e61fb05000)                     = 0x55e61fb05000
+newfstatat(AT_FDCWD, ".", {st_mode=S_IFDIR|0755, st_size=518, ...}, 0) = 0
+openat(AT_FDCWD, ".", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
+newfstatat(3, "", {st_mode=S_IFDIR|0755, st_size=518, ...}, AT_EMPTY_PATH) = 0
+getdents64(3, 0x55e61fae70b0 /* 19 entries */, 32768) = 720
+getdents64(3, 0x55e61fae70b0 /* 0 entries */, 32768) = 0
+close(3)                                = 0
+openat(AT_FDCWD, "Makefile", O_RDONLY)  = 3
+fcntl(3, F_GETFD)                       = 0
+fcntl(3, F_SETFD, FD_CLOEXEC)           = 0
+newfstatat(3, "", {st_mode=S_IFREG|0644, st_size=605, ...}, AT_EMPTY_PATH) = 0
+read(3, "# Automatically generated by /ho"..., 4096) = 605
+read(3, "", 4096)                       = 0
+close(3)                                = 0
+newfstatat(AT_FDCWD, "RCS", 0x7ffe7c38bfd0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "SCCS", 0x7ffe7c38bfd0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "Makefile", {st_mode=S_IFREG|0644, st_size=605, ...}, 0) = 0
+rt_sigprocmask(SIG_BLOCK, [HUP INT QUIT TERM XCPU XFSZ], NULL, 8) = 0
+newfstatat(AT_FDCWD, "/bin/sh", {st_mode=S_IFREG|0755, st_size=1396520, ...}, 0) = 0
+geteuid()                               = 0
+getegid()                               = 0
+getuid()                                = 0
+getgid()                                = 0
+access("/bin/sh", X_OK)                 = 0
+mmap(NULL, 36864, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_STACK, -1, 0) = 0x7f1218dc4000
+rt_sigprocmask(SIG_BLOCK, ~[], [HUP INT QUIT TERM CHLD XCPU XFSZ], 8) = 0
+clone3({flags=CLONE_VM|CLONE_VFORK, exit_signal=SIGCHLD, stack=0x7f1218dc4000, stack_size=0x9000}, 88) = 1656560
+munmap(0x7f1218dc4000, 36864)           = 0
+rt_sigprocmask(SIG_SETMASK, [HUP INT QUIT TERM CHLD XCPU XFSZ], NULL, 8) = 0
+rt_sigprocmask(SIG_UNBLOCK, [HUP INT QUIT TERM XCPU XFSZ], NULL, 8) = 0
+wait4(-1, 
+make[1]: *** No rule to make target 'br-rootfs-pack'.  Stop.
+[{WIFEXITED(s) && WEXITSTATUS(s) == 2}], 0, NULL) = 1656560
+write(2, "make: *** [Makefile:23: _all] Er"..., 38make: *** [Makefile:23: _all] Error 2
+) = 38
+rt_sigprocmask(SIG_BLOCK, [HUP INT QUIT TERM XCPU XFSZ], NULL, 8) = 0
+rt_sigprocmask(SIG_UNBLOCK, [HUP INT QUIT TERM XCPU XFSZ], NULL, 8) = 0
+chdir("/home/work/buildroot/output/milkv-duo256m-musl-riscv64-sd") = 0
+close(1)                                = 0
+exit_group(2)                           = ?
++++ exited with 2 +++
+```
 
 
 https://lists.buildroot.org/pipermail/buildroot/2024-September/763767.html
