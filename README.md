@@ -345,3 +345,25 @@ https://lists.buildroot.org/pipermail/buildroot/2024-September/763767.html
 
 https://honnef.co/articles/statically-compiled-go-programs-always-even-with-cgo-using-musl/
 
+
+
+
+# day 4
+
+
+
+发现 arm glic 可以直接编译成功， 更加确定了关键原因是 musl 
+
+
+```bash
+[root@milkv-duo]~# docker -v
+Docker version 27.5.1, build 27.5.1
+[root@milkv-duo]~# cat /etc/os-release 
+NAME=Buildroot
+VERSION=-ge7b0c7933-dirty
+ID=buildroot
+VERSION_ID=2025.02
+PRETTY_NAME="Buildroot 2025.02"
+[root@milkv-duo]~# 
+```
+
