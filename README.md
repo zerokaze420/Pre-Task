@@ -54,7 +54,7 @@ Error: Build board milkv-duo256m-musl-riscv64-sd failed!
 
 
 
-```
+```bash
 2025-08-15T19:27:48 github.com/containerd/nri/pkg/adaptation
 2025-08-15T19:27:48 github.com/containerd/containerd/v2/internal/nri
 2025-08-15T19:27:49 github.com/containerd/containerd/v2/plugins/nri
@@ -100,7 +100,7 @@ unknown relocation type 17 是一个非常底层、和 CGO（Go 和 C 代码的�
 
 
 
-怀疑是 musl 的问题 ， 尝试使用 glic , 发现切换后还是 报错
+怀疑是 musl 的问题 ， 尝试使用 glic , 发现切换后还是 报错 ，缺少工具链支持
 
 
 ```bash
@@ -203,7 +203,7 @@ exit_group(2)                           = ?
 root@e458080c4150:/home/work# 
 ```
 
-继续按搜索报错
+继续按搜索报错， 发现是文件打开错误
 
 
 
@@ -366,4 +366,7 @@ VERSION_ID=2025.02
 PRETTY_NAME="Buildroot 2025.02"
 [root@milkv-duo]~# 
 ```
+
+
+发现 musl 很难编译出来 docker ，于是准备去参考一下 alpine 的 APKBUILD
 
