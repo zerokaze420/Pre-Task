@@ -49,7 +49,7 @@ Error: Build board milkv-duo256m-musl-riscv64-sd failed!
 ```
 
 
-> 这里排查错了
+> 这里排查错了 , 没看日志导致的
 貌似是因为没有开启内核参数导致的。
 继续排查， 发现是文件太大放不下来， 提示如下
 执行 `make menuconfig` 调整到根分区为 1024M
