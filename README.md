@@ -325,6 +325,21 @@ exit_group(2)                           = ?
 ```
 
 
+没招了
+
+发现 github issues 有类似的问题 ， 看不懂
+
+继续排查 ， 发现是工具链问题
+
+
+```bash
+2025-08-17T00:26:38 ln: failed to create symbolic link '/home/work/buildroot/output/milkv-duo256m-musl-riscv64-sd/host/riscv64-buildroot-linux-musl/sysroot/lib64/lp64d': No such file or directory
+2025-08-17T00:26:38 ln: failed to create symbolic link '/home/work/buildroot/output/milkv-duo256m-musl-riscv64-sd/host/riscv64-buildroot-linux-musl/sysroot/usr/lib64/lp64d': No such file or directory
+2025-08-17T00:26:38 make[1]: *** [package/pkg-generic.mk:312: /home/work/buildroot/output/milkv-duo256m-musl-riscv64-sd/build/toolchain-external-custom/.stamp_staging_installed] Error 1
+```
+
+
+
 https://lists.buildroot.org/pipermail/buildroot/2024-September/763767.html
 
 
