@@ -32,6 +32,8 @@ Locale: en_US.UTF-8
 
 根据`Buildroot SDK V2` 文档添加 `Docker` 软件包编译， 速度感人一次耗时60分钟
 
+>https://milkv.io/zh/docs/duo/getting-started/buildroot-sdk
+
 编译错误
 
 ```bash
@@ -46,6 +48,8 @@ make: *** [Makefile:621: br-rootfs-pack] Error 2
 Error: Build board milkv-duo256m-musl-riscv64-sd failed!
 ```
 
+
+> 这里排查错了
 貌似是因为没有开启内核参数导致的。
 继续排查， 发现是文件太大放不下来， 提示如下
 执行 `make menuconfig` 调整到根分区为 1024M
@@ -100,7 +104,7 @@ unknown relocation type 17 是一个非常底层、和 CGO（Go 和 C 代码的�
 
 
 
-怀疑是 musl 的问题 ， 尝试使用 glic , 发现切换后还是 报错 ，缺少工具链支持
+怀疑是 musl 的问题 ， 尝试使用 glic , 发现切换后还是 报错 ，缺少工具链支持 
 
 
 ```bash
@@ -110,6 +114,7 @@ Done in 1min 55s  (error code: 2)make: *** [Makefile:621: br-rootfs-pack] Error 
 
 # Day 3
 
+继续针对 `make br-rootfs-pack` 排查
 
 ```bash
 root@e458080c4150:/home/work# strace make br-rootfs-pack
@@ -203,7 +208,7 @@ exit_group(2)                           = ?
 root@e458080c4150:/home/work# 
 ```
 
-继续按搜索报错， 发现是文件打开错误
+继续按搜索报错， 发现是文件打开错误 ， 切换了一个目录
 
 
 
@@ -329,6 +334,12 @@ exit_group(2)                           = ?
 
 发现 github issues 有类似的问题 ， 看不懂
 
+
+
+
+>https://lists.buildroot.org/pipermail/buildroot/2024-September/763767.html
+>https://honnef.co/articles/statically-compiled-go-programs-always-even-with-cgo-using-musl/
+
 继续排查 ， 发现是工具链问题
 
 
@@ -339,11 +350,6 @@ exit_group(2)                           = ?
 ```
 
 
-
-https://lists.buildroot.org/pipermail/buildroot/2024-September/763767.html
-
-
-https://honnef.co/articles/statically-compiled-go-programs-always-even-with-cgo-using-musl/
 
 
 
