@@ -9,7 +9,7 @@
 
 # Day 2
 
-开发环境本机通过 zed remote 开发 ，  生成镜像后通过 SCP 本机烧录到开发板
+开发环境本机通过 zed remote 开发 ，  使用官方的 buildroot 生成镜像后通过 SCP 本机烧录到开发板
 
 ```bash
 OS: Ubuntu 22.04.5 LTS x86_64
@@ -30,7 +30,7 @@ Locale: en_US.UTF-8
 ```
 
 
-根据`Buildroot SDK V2` 文档添加 `Docker` 软件包编译， 速度感人一次耗时60分钟
+根据 `Buildroot SDK V2` 文档添加 `Docker` 软件包编译， 速度感人一次耗时60分钟
 
 >https://milkv.io/zh/docs/duo/getting-started/buildroot-sdk
 
