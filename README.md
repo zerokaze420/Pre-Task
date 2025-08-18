@@ -376,4 +376,8 @@ PRETTY_NAME="Buildroot 2025.02"
 
 查阅资料发现 musl 很难编译出来 docker ，于是准备去参考一下 alpine 和 gentoo 的 构建脚本
 
+>https://gitlab.alpinelinux.org/alpine/aports/-/blob/master/community/docker/APKBUILD
+>https://gitweb.gentoo.org/repo/gentoo.git/tree/app-containers/docker/docker-28.2.2.ebuild
+
+
 
