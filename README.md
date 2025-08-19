@@ -1,3 +1,9 @@
+# 最终能达到的效果
+
+
+<img width="869" height="974" alt="图片" src="https://github.com/user-attachments/assets/1f1644dd-97a8-46dc-821f-fcb5c8727189" />
+
+
 
 # Day 1
 
