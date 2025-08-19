@@ -364,7 +364,7 @@ exit_group(2)                           = ?
 
 
 
-发现 arm glic 可以直接编译成功， 更加确定了关键原因是 musl 
+发现 arm glic 可以直接编译成功 , 并且可以成功运行 ， 更加确定了关键原因是 musl 
 
 
 ```bash
