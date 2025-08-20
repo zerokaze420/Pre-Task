@@ -1,6 +1,6 @@
 # 最终能达到的效果
 
-arm 可以编译出来 docker 并且可以运行 ， riscv 不能编译出来 排查到了 musl 的问题 ，但是缺失工具链无法确认
+arm 可以编译出来 docker 并且可以运行（但是因为网络配置问题无法下载镜像）， riscv 不能编译出来 排查到了 musl 的问题 ，但是缺失工具链无法确认
 
 <img width="86" height="97" alt="图片" src="https://github.com/user-attachments/assets/1f1644dd-97a8-46dc-821f-fcb5c8727189" />
 
