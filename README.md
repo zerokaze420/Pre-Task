@@ -17,6 +17,14 @@ arm 可以编译出来 docker 并且可以运行 ， riscv 不能编译出来 �
 > 配置文件使用 `Buildroot SDK V2`
 
 
+## 配置编译中参考了以下文档以及资料
+
+[mlikv 官方文档](https://milkv.io/zh/docs/duo/overview)
+
+[[Buildroot] crucible: Build failure on riscv64/mips64el ](https://lists.buildroot.org/pipermail/buildroot/2024-September/763767.html)
+
+
+[Statically compiled Go programs, always, even with cgo, using musl](https://honnef.co/articles/statically-compiled-go-programs-always-even-with-cgo-using-musl/)
 
 
 
