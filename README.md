@@ -17,7 +17,7 @@ arm 可以编译出来 docker 并且可以运行（但是因为网络配置问�
 > 配置文件使用 `Buildroot SDK V2`
 
 
-## 配置编译中参考了以下文档以及资料
+## 配置编译中参考了以下文档以及资料 
 
 [mlikv 官方文档](https://milkv.io/zh/docs/duo/overview)
 
@@ -28,6 +28,9 @@ arm 可以编译出来 docker 并且可以运行（但是因为网络配置问�
 
 
 [How to compile kernel modules](https://community.milkv.io/t/how-to-compile-kernel-modules/3212/1)
+
+[Error runing Docker on Duo256](https://community.milkv.io/t/error-runing-docker-on-duo256/2632)
+
 
 # Day 1
 
