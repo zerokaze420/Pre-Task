@@ -1,7 +1,22 @@
 # 最终能达到的效果
 
+arm 可以编译出来 docker 并且可以运行 ， riscv 不能编译出来 排查到了 musl 的问题 ，但是缺失工具链无法确认
 
 <img width="86" height="97" alt="图片" src="https://github.com/user-attachments/assets/1f1644dd-97a8-46dc-821f-fcb5c8727189" />
+
+
+
+> 前几天用的是milkv duo 255m , 因为dos 不在手上
+
+> 编译使用的是buildroot 
+
+
+> 编译环境 采用的 一开始使用 Ubuntu 22.04.5 ， 后面使用 docker 避免环境造成的误差
+
+
+> 配置文件使用 `Buildroot SDK V2`
+
+
 
 
 
