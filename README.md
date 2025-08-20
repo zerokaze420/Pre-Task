@@ -1,6 +1,6 @@
 # 最终能达到的效果
 
-arm 可以编译出来 docker 并且可以运行（但是因为网络配置问题无法下载镜像）， riscv 不能编译出来 排查到了 musl 的问题 ，但是 moby 本身并不官方支持 riscv 加上工具链的原因无法确认
+arm 可以编译出来 docker 并且可以运行（但是因为网络配置问题无法下载镜像）， riscv 不能编译出来 排查到了 musl 和 golang 的问题 ，但是 moby 本身并不官方支持 riscv 加上工具链缺失的原因无法确认
 
 
 
@@ -32,7 +32,9 @@ arm 可以编译出来 docker 并且可以运行（但是因为网络配置问�
 [Error runing Docker on Duo256](https://community.milkv.io/t/error-runing-docker-on-duo256/2632)
 
 
-[Adding support for RISC-V](https://github.com/moby/moby/issues/44319)
+[Adding support for RISC-V](https://github.com/moby/moby/issues/44319)\
+
+[cmd/link: ppc64 (big endian) cgo errors](https://github.com/golang/go/issues/13192)
 
 # Day 1
 
