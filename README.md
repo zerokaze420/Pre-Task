@@ -10,7 +10,7 @@ arm 可以编译出来 docker 并且可以运行（但是因为网络配置问�
 
 > 前3天用的是 milkv duo 255m,因为 dos 不在手上
 
-> 编译使用的是buildroot 
+> 编译使用的是buildroot
 
 > 编译环境采用的一开始使用 Ubuntu 22.04.5 ， 后面使用 docker 避免环境造成的误差
 
@@ -393,7 +393,7 @@ exit_group(2)                           = ?
 
 
 
-发现 arm glic 可以直接编译成功 , 并且可以成功运行 ， 更加确定了关键原因是 musl 
+发现 arm glic 可以直接编译成功 。并且可以通过配置 kernel 可以成功运行 ， 更加确定了关键原因是 musl 
 
 
 ```bash
@@ -414,5 +414,9 @@ PRETTY_NAME="Buildroot 2025.02"
 >https://gitlab.alpinelinux.org/alpine/aports/-/blob/master/community/docker/APKBUILD
 >https://gitweb.gentoo.org/repo/gentoo.git/tree/app-containers/docker/docker-28.2.2.ebuild
 
+# day 5
+
+
+整理了一下资料以及报错信息
 
 
