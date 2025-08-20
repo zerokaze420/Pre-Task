@@ -32,6 +32,8 @@ arm 可以编译出来 docker 并且可以运行（但是因为网络配置问�
 [Error runing Docker on Duo256](https://community.milkv.io/t/error-runing-docker-on-duo256/2632)
 
 
+[Adding support for RISC-V](https://github.com/moby/moby/issues/44319)
+
 # Day 1
 
 
