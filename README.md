@@ -34,7 +34,6 @@ arm 可以编译出来 docker 并且可以运行（但是因为网络配置问�
 
 [Adding support for RISC-V](https://github.com/moby/moby/issues/44319)\
 
-[cmd/link: ppc64 (big endian) cgo errors](https://github.com/golang/go/issues/13192)
 
 # Day 1
 
