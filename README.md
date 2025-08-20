@@ -27,6 +27,7 @@ arm 可以编译出来 docker 并且可以运行（但是因为网络配置问�
 [Statically compiled Go programs, always, even with cgo, using musl](https://honnef.co/articles/statically-compiled-go-programs-always-even-with-cgo-using-musl/)
 
 
+[How to compile kernel modules](https://community.milkv.io/t/how-to-compile-kernel-modules/3212/1)
 
 # Day 1
 
